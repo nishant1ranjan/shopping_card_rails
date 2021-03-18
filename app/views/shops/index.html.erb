@@ -1,0 +1,43 @@
+<div id="card">
+  <%= render 'cards/card'%>
+</div>
+<h1> Our Products</h1>
+<div class = "prod_div">
+      <% @products.each do |product| %>
+    <div class="item-card ">
+        <p><%= image_tag product.product_images , class: 'img_size'%></p>
+           <p><%= product.title %></p>
+            <p><%= product.price %></p>
+        <%= link_to 'Show', shop_path(product) %>
+          <%= form_for @order_item, remote: true  do |f|%>
+          <%= f.hidden_field :product_id, :value => product.id %>
+          <%= f.number_field :quantity, :value => 1, :min =>  1%>
+          <%= f.submit "Add to Card "%>
+        <% end %>
+    </div>
+      <% end %>
+  </div>
+<style>
+  .prod_div{
+    display: flex;
+    justify-content: space-between;
+  }
+  .img_size{
+    height:130px;
+    width:170px;
+  }
+  .card{
+    margin-top: 15px;
+    display: block;
+  }
+  .item-card{
+    width: 300px;
+    height: 250px;
+    float: right;
+  }
+  .item-card:hover{
+    border: 1px solid;
+    padding: 10px;
+    box-shadow: 5px 10px #888888;
+  }
+</style>
